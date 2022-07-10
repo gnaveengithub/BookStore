@@ -23,7 +23,8 @@ namespace BookStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //services.AddRazorPages();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,19 +39,40 @@ namespace BookStore
                 app.UseExceptionHandler("/Error");
             }
 
-            //app.UseStaticFiles();
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hello from Naveen G");
+            //    await next();
+            //});
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hello from Bhavani G");
+            //    await next();
+            //});
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
             //app.UseAuthorization();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+                
+            //});
+
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapRazorPages();
-                endpoints.MapGet("/", async context =>
-                 {
-                     await context.Response.WriteAsync("Hello World");
-                 });
+                endpoints.MapDefaultControllerRoute();
+                //endpoints.MapGet("/", async context =>
+                // {
+                //     if (env.IsEnvironment("Development"))
+                //        await context.Response.WriteAsync("Hello World");
+                //     else
+                //         await context.Response.WriteAsync("Hello World from Development");
+                // });
             });
         }
     }
